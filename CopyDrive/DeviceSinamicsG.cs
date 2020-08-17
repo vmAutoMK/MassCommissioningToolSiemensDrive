@@ -27,6 +27,8 @@ namespace CopyDrive
         private IoConnector ioConnector;
         private Node node;
         public string Name { get; }
+
+        public string PowerModule { get; }
         public int safetyAddress { get; }
         public int safetHwAddress_in { get; }
         public int safetHwAddress_out { get; }
@@ -59,6 +61,7 @@ namespace CopyDrive
             ioConnector = profinetInterface.IoConnectors[0];
             node = profinetInterface.Nodes[0];
             Name = device.DeviceItems[1].Name;
+            PowerModule = device.DeviceItems[2].TypeIdentifier;
             safetyAddress = GetSafetyAddress();
             safetHwAddress_in = getSafetyHwAddressIn();
             safetHwAddress_out = getSafetyHwAddressOut();

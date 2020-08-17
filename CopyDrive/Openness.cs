@@ -255,12 +255,18 @@ namespace OpennessClass
         public Device device { get; set; }
         public DeviceUserGroup usergroup { get; set; }
         public string driveName { get; set; }
+        public string powerModule { get; set; }
 
-        public DeviceExtended(Device device, DeviceUserGroup usergroup)
+        public DeviceExtended(Device device, DeviceUserGroup usergroup )
         {
             this.device = device;
             this.usergroup = usergroup;
             driveName = device.DeviceItems[1].Name;
+            powerModule = device.DeviceItems[2].TypeIdentifier;
+        }
+        public override string ToString()
+        {
+            return driveName;
         }
     }
 

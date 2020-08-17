@@ -166,6 +166,14 @@ namespace CopyDrive
 
         #endregion
 
+        private bool SamePowermodule(string selectedDriveName  , string treeView)
+        {
+
+            DeviceExtended selectedDevice = myOpenness.lsDeviceExtendeds.Find(d => d.driveName == selectedDriveName);
+            DeviceExtended evalDevice = myOpenness.lsDeviceExtendeds.Find(d => d.driveName == treeView);
+
+            return selectedDevice.powerModule == evalDevice.powerModule;
+        }
 
 
         //Select Drive To Copy is selected/changed => Selected drive gray in TreeView
@@ -177,12 +185,18 @@ namespace CopyDrive
 
                 foreach (TreeNode childnode in tvDevices.Nodes[myInt].Nodes)
                 {
+         
                     if (childnode.Text.Equals(cbDriveToCopy.SelectedItem.ToString()))
                     {
                         childnode.Checked = false;
                         childnode.BackColor = Color.Gray;
                     }
-                    else
+                    else if (!SamePowermodule(cbDriveToCopy.SelectedItem.ToString(), childnode.Text))
+                    {
+                            childnode.Checked = false;
+                            childnode.BackColor = Color.Red;
+                                            }
+                        else
                     {
                         childnode.BackColor = Color.White;
                     }
@@ -218,7 +232,7 @@ namespace CopyDrive
 
             foreach (DeviceExtended deviceextended in myOpenness.lsDeviceExtendeds)
             {
-                lsDevicesSinamicsG.Add(deviceextended.driveName);
+                lsDevicesSinamicsG.Add(deviceextended.ToString());
             }
 
 
